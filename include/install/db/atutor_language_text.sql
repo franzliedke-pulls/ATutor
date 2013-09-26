@@ -2372,6 +2372,7 @@ INSERT INTO `language_text` VALUES ('en', '_template','tests','Tests and Surveys
 INSERT INTO `language_text` VALUES ('en', '_template','test_anonymous','This test/survey is anonymous.','2004-09-02 13:42:31','');
 INSERT INTO `language_text` VALUES ('en', '_template','test_confirm_submit','You are about to submit the test/survey.  Please note that changes are not allowed once the test/survey is submitted, do you want to proceed?','2010-05-07 10:53:46','test questions');
 INSERT INTO `language_text` VALUES ('en', '_template','test_description','Test Description','2008-03-10 11:50:11','Test/Survey Property');
+INSERT INTO `language_text` VALUES ('en', '_template','test_fb','Fill in the Blank','2013-09-24 13:49:17','test manager question type');
 INSERT INTO `language_text` VALUES ('en', '_template','test_import_package','Import available tests.','2008-10-21 11:43:37','');
 INSERT INTO `language_text` VALUES ('en', '_template','test_lk','Likert','2004-08-12 15:55:22','');
 INSERT INTO `language_text` VALUES ('en', '_template','test_ma','Multiple Answer','2007-02-01 15:49:57','');

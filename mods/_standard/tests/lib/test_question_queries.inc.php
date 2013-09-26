@@ -61,6 +61,12 @@ define('AT_SQL_QUESTION_MATCHINGDD', "INSERT INTO ".TABLE_PREFIX."tests_question
                             %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 
                             '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', 0, 0, '%s')");
 
+//Question for Fill in the Blank
+define('AT_SQL_QUESTION_FILLBLANK', "INSERT INTO ".TABLE_PREFIX."tests_questions VALUES (    NULL, %d, %d, 9, '%s', '%s', 
+                            '', '', '', '', '', '', '', '', '', '', 
+                            %s, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+                            '', '', '', '', '', '', '', '', '', '', 5, 0, '%s')");
+
 define('AT_SQL_TEST', "INSERT INTO ".TABLE_PREFIX."tests " .
                        "(test_id,
                      course_id,

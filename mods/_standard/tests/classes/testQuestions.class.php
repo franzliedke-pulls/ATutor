@@ -81,6 +81,7 @@ class TestQuestions {
         $question_classes[6] = 'OrderingQuestion';
         $question_classes[7] = 'MultianswerQuestion';
         $question_classes[8] = 'MatchingddQuestion';
+        $question_classes[9] = 'FillblankQuestion';
 
         return $question_classes;
     }
@@ -1599,4 +1600,87 @@ class MultianswerQuestion extends MultichoiceQuestion {
     }
 
 }
+
+/**
+* fillblankQuestion
+*
+*/
+class FillblankQuestion extends AbstracttestQuestion {
+    /*protected */ var $sPrefix = 'fillblank';
+    /*protected */ var $sNameVar   = 'test_fb';
+
+    /*protected */function assignQTIVariables($row) {
+        $this->savant->assign('row', $row);
+    }
+
+    /*protected */function assignDisplayResultVariables($row, $answer_row) {
+
+        $this->savant->assign('base_href', AT_BASE_HREF);
+        $this->savant->assign('answers', $answer_row['answer']);
+        $this->savant->assign('row', $row);
+    }
+
+    /*protected */function assignDisplayVariables($row, $response) {
+        $this->savant->assign('row', $row);
+        $this->savant->assign('response', $response);
+    }
+
+    /*protected */function assignDisplayStatisticsVariables($row, $answers) {
+        $num_results = 0;        
+        foreach ($answers as $answer) {
+            $num_results += $answer['count'];
+        }
+
+        $this->savant->assign('num_results', $num_results);
+        $this->savant->assign('num_blanks', (int) $answers['-1']['count']);
+        $this->savant->assign('num_true', (int) $answers['1']['count']);
+        $this->savant->assign('num_false', (int) $answers['2']['count']);
+        $this->savant->assign('row', $row);
+    }
+
+    /*public */function mark($row) { 
+        $_POST['answers'][$row['question_id']] = intval($_POST['answers'][$row['question_id']]);
+
+        if ($row['answer_0'] == $_POST['answers'][$row['question_id']]) {
+            return (int) $row['weight'];
+        } // else:
+        return 0;
+    }
+
+    //QTI Import Fill in the Blank Question
+    function importQTI($question){
+        global $msg, $db;
+
+        if ($question['question'] == ''){
+            $msg->addError(array('EMPTY_FIELDS', _AT('statement')));
+        }
+
+        //assign true answer to 1, false answer to 2, idk to 3, for ATutor
+        if  ($question['answer'] == 'ChoiceT'){
+            $question['answer'] = 1;
+        } else {
+            $question['answer'] = 2;    
+        }
+
+        if (!$msg->containsErrors()) {
+//            $question['feedback'] = $addslashes($question['feedback']);
+//            $question['question'] = $addslashes($question['question']);
+
+
+            $sql_params = array(    $question['category_id'], 
+                                    $_SESSION['course_id'],
+                                    $question['feedback'], 
+                                    $question['question'], 
+                                    $question['answer'],
+                                    'DEFAULT');
+
+            $sql = vsprintf(AT_SQL_QUESTION_FILLBLANK, $sql_params);
+            $result    = mysql_query($sql, $db);
+            if ($result==true){
+                return mysql_insert_id();
+            }            
+        }
+    }
+}
+
 ?>

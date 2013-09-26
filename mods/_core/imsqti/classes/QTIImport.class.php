@@ -28,6 +28,7 @@ require(AT_INCLUDE_PATH.'../mods/_core/imsqti/classes/QTIParser.class.php');
 *	6	Ordering
 *	7	Multiple Answers
 *	8	Graphical Matching
+*	9	Fill in the Blank
 * @access	public
 * @author	Harris Wong
 */
